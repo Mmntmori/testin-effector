@@ -64,13 +64,10 @@ describe('Testing model', () => {
         expect(renderer.getByTestId('test-app')).toHaveTextContent('Нет данных')
 
         // триггерим событие сбора данных о пользователе
-        await allSettled(getUserInfoTrigger, {scope});
 
-        await waitFor(() => <Provider value={scope}>
-            <App/>
-        </Provider>)
-        expect(scope.getState($userStore)).toEqual({userName: 'Michael', age: 25, id: 1})
-        renderer.debug()
-        expect(renderer.getByTestId('test-text')).toHaveTextContent(JSON.stringify(scope.getState($userStore)))
+        await waitFor(async () => {
+            await allSettled(getUserInfoTrigger, {scope});
+            expect(renderer.getByTestId('test-text')).toHaveTextContent(JSON.stringify(scope.getState($userStore)))
+        })
     })
 })

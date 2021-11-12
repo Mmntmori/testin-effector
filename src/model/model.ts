@@ -18,4 +18,3 @@ getUserInfoFx.done.watch(({result}) => setUserInfo(result));
 
 getUserInfoTrigger.watch(getUserInfoFx);
 
-
